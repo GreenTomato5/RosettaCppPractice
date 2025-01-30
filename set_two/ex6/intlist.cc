@@ -1,5 +1,5 @@
 #include <iostream>
-#include <???>
+#include <list>
 
 // In this lab, you will create an instance of an STL list of integers and call several functions on
 // this list.
@@ -46,7 +46,22 @@ int main() {
 
   std::cout << "Here we go!" << std::endl;
 
-  // your code goes here
+  std::list<int> aList;
+  int j;
+  for (j = 0; j <= 10; ++j)    {
+    aList.push_back(j);
+  }
+
+  std::cout <<  "Iterating Forwards " << std::endl;
+  for(int number : aList) {
+    std::cout <<  "Number in list: " << number << std::endl;
+  }
+
+  std::cout <<  "Iterating Backwards " << std::endl;
+  aList.reverse();
+  for(int number : aList) {
+    std::cout <<  "Number in list: " << number << std::endl;
+  }
 
   return 0;
 }

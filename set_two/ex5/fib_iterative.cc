@@ -58,13 +58,13 @@ int main()
   std::cin >> which;
 
   // Num times to run
-  const int iterations = 999999999;
+  const int iterations = 50;
   std::vector<double> times;
 
-  for (int which = 10; which <= 100; which++)
+  for (int which = 10; which <= 50; ++which)
   {
     clock_t start = clock();
-    for (int i = 0; i < iterations; i++)
+    for (int i = 0; i < iterations; ++i)
     {
       fib(which);
     }
