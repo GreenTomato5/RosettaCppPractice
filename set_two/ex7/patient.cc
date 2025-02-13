@@ -37,8 +37,48 @@
 // of BMI for assessing health, or complications regarding applying
 // it to any particular group of people (like infants).
 
-int main() {
+class Patient {
+  std::string name;
+  double height;
+  double weight;
 
+  public:
+    Patient(std::string name = "") : name(name), height(0), weight(0) {}
+
+    void set_weight(double weight) {
+      this->weight = weight;
+    };
+
+    void set_height(double height) {
+      this->height = height;
+    };
+
+    void set_name(std::string name) {
+      this->name = name;
+    };
+
+    std::string get_name() {
+      return name;
+    };
+
+    double get_height() {
+      return height;
+    };
+
+    double get_weight() {
+      return weight;
+    };
+
+    double bmi() {
+      if (height <= 0 || weight <= 0) {
+        return 0;
+      }
+      return weight / (height * height);
+    };
+};
+
+
+int main() {
   Patient father("Andrew Nonymous");
   Patient mother("Ursula N. Known");
   Patient baby;

@@ -28,7 +28,9 @@ using namespace std;
 // This function will take two integer arguments and a third integer reference argument.
 // The function should compute the sum of the first two arguments and store the value
 // in the third argument.  It should return void.
-
+void add(int first, int second, int &reference) {
+	reference = first + second;
+}
 
 
 // 3. Write subtract function here.
@@ -36,11 +38,15 @@ using namespace std;
 // The function should compute the difference of the first two arguments and store the value
 // in the third argument.  It should return void.
 
+void subtract(int first, int second, int &reference) {
+	reference = first - second;
+}
 
 
 // 4.
 // Instead of prompting the user for input, this program will read from the command line.
 // If you use the following g++ command to compile the program:
+// NOTE: assuming this is calculator.exe??
 // > g++ -o cacluator.g++ calculator.cc
 // Then you should test your program with the following two commands
 // > ./calculator.g++ 50 + 3
@@ -58,6 +64,7 @@ int main( int argc, char *argv[] ) {
 
 	// 1. Initialize a new integer variable, result, to 0.  This variable
 	// will be passed by reference into the functions you will write.
+	int result = 0;
 
 	///// DO NOT MODIFY CODE BELOW THIS LINE!!! //////
 
