@@ -133,5 +133,9 @@ int main() {
   
   
   //did you remember to deallocate the pointers?
+  delete cuber;
+  delete squarer;
+  delete doubler;
+
   return 0;
 }
