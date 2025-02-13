@@ -42,9 +42,6 @@
 //For now, feel free to skip to the top of int main(), and return to
 //the class definitions as needed.
 
-
-
-
 //This is the PARENT CLASS.  You won't be using it directly.  Don't
 //try to instantiate it. (you can't, because of the funny = 0
 //function, called a "pure virtual")
@@ -108,11 +105,11 @@ public:
 int main() {
 
   //here's an example for one class and one integer:
-  MathlikeOperator * cuber = new Cuber; //wow!  MathlikeOperator*, but pointing at a Cuber!
-  int j = 9;
-  std::cout << "My name is class " << cuber->name() << " and my math operation on " << j << " returns " << cuber->operate_on(j) << std::endl;
+  // MathlikeOperator * cuber = new Cuber; //wow!  MathlikeOperator*, but pointing at a Cuber!
+  // int j = 9;
+  // std::cout << "My name is class " << cuber->name() << " and my math operation on " << j << " returns " << cuber->operate_on(j) << std::endl;
   //if you are not familiar with the -> nomenclature, it means the same as (*cuber).name()
-  delete cuber;
+  // delete cuber;
 
   //now, comment that above out, and do that output for all of
   //doubler, squarer, and cuber over integers 1-10.  Loop over the
@@ -123,7 +120,18 @@ int main() {
   //Squarer: you may only point to them via MathlikeOperator pointers.
 	//Cuber cuber; // ILLEGAL! (it compiles, but it's against the assignment)
 	//Cuber * cuber = new Cuber; // ALSO ILLEGAL! (it compiles, but it's against the assignment)
+  MathlikeOperator * cuber = new Cuber;
+  MathlikeOperator * squarer = new Squarer;
+  MathlikeOperator * doubler = new Doubler;
+  std::vector<MathlikeOperator*> operators = {new Cuber, new Squarer, new Doubler};
 
+    for (int x = 0; x < 10; x++) {
+      for (MathlikeOperator* op : operators) {
+          std::cout <<  op->name() << " for number " << x << " outputs: "<< doubler->operate_on(x) << std::endl;
+      }
+    }
+  
+  
   //did you remember to deallocate the pointers?
   return 0;
 }
