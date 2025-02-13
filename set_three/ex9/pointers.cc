@@ -19,23 +19,26 @@
 
 // Run this program and give the value "10" when prompted.
 // A. What is the value printed on the output line that starts with "END"?
-
+  // The incremented value (value stored at the pointed intptr_ in the function and myint in regular code)
 // B. Where did that value come from?
-
+  // It gets incremented every time you pass in a valid memory location for where its stored (myint int ptr) so it
+  // was only incremented twice because once out of the three times you pass in a ptr, the memory location is invalid
 // C. What does inc2 do?
+  // Its a pointer to an instance of the incrementer class and doesen't actually do anything beause you pass 
+  // in 0 instead of myint so it has nothing to increment 
 
 // Provide your answers here.
 
 class Incrementer {
 public:
-  Incrementer( std::string const & name, int * intptr ) :
+  Incrementer( std:: string const & name, int * intptr ) :
     name_( name ),
     intptr_( intptr )
   {}
 
   void increment() {
     std::cout << name_ << " call to increment; ";
-    if (intptr_ == 0) {   // 1.
+    if (intptr_ != 0) {   // 1.
       std::cout << "incrementing value stored at " << intptr_;
       *intptr_ = *intptr_ + 1;
       std::cout << "; new value of " << *intptr_ << std::endl;
