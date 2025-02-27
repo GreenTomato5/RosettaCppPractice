@@ -42,6 +42,10 @@
 // std::string get_favorite_food();
 //
 // (What does the keyword "virtual" do?)
+//  
+// ans:
+// It means a member function of the class (the one with the virtual keyword) can
+// be overidden by a derived class 
 //
 // This function is called in the "train_at_salad_bar" function (below), where
 // players can pay $7.50 to feed their pets all the salad they can eat, and
@@ -75,6 +79,8 @@ public:
   float calorie_reserve() const;
 
   // Add the two methods, set_favorite_food and get_favorite_food here
+  std::string get_favorite_food();
+  void set_favorite_food (std::string food);
 
 protected:
   void set_initial_weight( float weight ); // in pounds
@@ -91,6 +97,7 @@ private:
   int age_of_adulthood_; // number of hours at which the pet is full grown
   float happiness_;
   float calorie_reserve_;
+  std::string favorite_food_;
   // Add a data member here to store the Pet's favorite food
 
 };
@@ -102,7 +109,7 @@ Pet::Pet() :
   age_( -1.0 ),
   happiness_( 1.0 ),
   calorie_reserve_( 400 ),
-  // make sure you initialize the favorite food data member in the constructor 
+  favorite_food_("") 
 {}
 
 Pet::~Pet() {}
@@ -157,6 +164,17 @@ Pet::happiness() const { return happiness_; }
 float
 Pet::calorie_reserve() const { return calorie_reserve_; }
 
+std::string 
+Pet::get_favorite_food() {
+  return favorite_food_;
+}
+
+void
+Pet::set_favorite_food( std::string food ) 
+{
+  favorite_food_ = food;
+}
+
 void
 Pet::set_initial_weight( float weight )
 {
@@ -181,6 +199,21 @@ Pet::set_metabolic_rate( float rate )
 {
   metabolic_rate_ = rate;
 }
+
+class TabbyCat : public Pet {
+public:
+  TabbyCat() {
+    set_age_of_adulthood(10);
+    set_metabolic_rate(6);
+    set_initial_weight(0.5);
+    set_ideal_adult_weight(12);
+    Pet::set_favorite_food("meat");
+  }
+
+  void set_favorite_food( std::string food ) override {
+    throw std::runtime_error("Cannot set favorite food for a TabbyCat (they like meat!)");
+  }
+};
 
 void
 train_at_salad_bar( Pet & pet, int num_helpings ) {
