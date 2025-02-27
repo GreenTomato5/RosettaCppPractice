@@ -166,9 +166,9 @@ int main() {
   for ( int ii = 0; ii < 45; ++ii ) {
     float ncalories( 0 );
     if ( ii < 30 ) {
-      ncalories = 200 + ii*10;
+      ncalories = 90 + ii*10;
     } else {
-      ncalories = 12 * 8 * 6;
+      ncalories = 5 * 8 * 6;
     }
     snookums.feed( 1.0, ncalories );
     for ( int jj = 0; jj < 8; ++jj ) {
