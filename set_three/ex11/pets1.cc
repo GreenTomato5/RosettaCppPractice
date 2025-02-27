@@ -145,10 +145,7 @@ Pet::set_metabolic_rate( float rate )
 // Declare and implement class TabbyCat here
 class TabbyCat : public Pet {
 public:
-  TabbyCat();
-  ~TabbyCat();
-
-  TabbyCat::TabbyCat() {
+  TabbyCat() {
     set_age_of_adulthood(10);
     set_metabolic_rate(6);
     set_initial_weight(0.5);
