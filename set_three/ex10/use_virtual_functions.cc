@@ -125,17 +125,18 @@ int main() {
   MathlikeOperator * doubler = new Doubler;
   std::vector<MathlikeOperator*> operators = {new Cuber, new Squarer, new Doubler};
 
-    for (int x = 0; x < 10; x++) {
       for (MathlikeOperator* op : operators) {
-          std::cout <<  op->name() << " for number " << x << " outputs: "<< doubler->operate_on(x) << std::endl;
+        for (int x = 0; x < 10; x++) {
+          std::cout <<  op->name() << " for number " << x << " outputs: "<< op->operate_on(x) << std::endl;
+        }
+        delete op;
       }
-    }
   
   
   //did you remember to deallocate the pointers?
-  delete cuber;
-  delete squarer;
-  delete doubler;
+  // delete cuber;
+  // delete squarer;
+  // delete doubler;
 
   return 0;
 }
