@@ -36,10 +36,13 @@
 
 
 #include <iostream>
+#include <vector>
 
 class shape {
 public:
   float get_area(){return area_;} //Getter function: returns the area stored in area_
+  void set_name(std::string name) {name_ = name;}
+  std::string get_name() {return name_;}
 
 protected:
 
@@ -49,16 +52,19 @@ protected:
 
 private:
   float area_;
+  std::string name_;
 };
 
 //write a derived class rectangle from the base class shape
 class rectangle : public shape{
 public:
   // note that the rectangle is responsible for informing the base class of its area
-  rectangle( float b, float h ) { base_ = b; height_ = h; set_area( calculate_area() ); } //constructor that sets-up default values
+  rectangle( float b, float h ) { base_ = b; height_ = h; set_area( calculate_area() ); set_name("Rectangle");} //constructor that sets-up default values
 
   float calculate_area() {return base_ * height_;} //calculates the area of a rectangle using the formula base*height
 
+  // It doesent compile because area is a private member of shape and rectangle cant derive area from shape because it
+  // only inherits publically
   //float whats_area(){return area_;} //THIS LINE WILL NOT COMPILE. Why not?
 
   void set_base( float b ) { base_ = b; set_area( calculate_area() ); }
@@ -73,12 +79,49 @@ private:
 // by a single radius and thus the constructor should take a single argument and assign
 // the value to the radius. There should also be a calculate_area function that
 // calculates the area of the circle.
+class Circle : public shape {
+public:
+  Circle(float r) {radius_ = r; set_area(calculate_area()); set_name("Circle");}
+
+  void set_radius(float r) {radius_ = r; set_area(calculate_area());}
+
+private:
+  float radius_;
+  float calculate_area() {return 3.14159265359 * radius_ * radius_;}
+};
+
 
 // Write a derived class, triangle, from the base class shape.  A triangle can be
 // defined by the lengths of its three sides.  Make sure your triangle is able to
 // calculate its area.  If the three lengths do not define a proper triangle (e.g.
 // if one lenght is 1 another length is 2 and the third length is 100, then you
 // don't have a closed triangle), then set the area to be -1.
+
+class Triangle : public shape {
+public:
+  Triangle(float l1, float l2, float l3) {
+    if (l1 + l2 > l3 && l1 + l3 > l2 && l2 + l3 > l1) {
+      length1_ = l1;
+      length2_ = l2;
+      length3_ = l3;
+      set_area(calculate_area());
+    } else {
+      set_area(-1);
+    }
+    set_name("Triangle");
+  }
+
+private:
+  float length1_;
+  float length2_;
+  float length3_;
+
+  float calculate_area() {
+    float s = (length1_ + length2_ + length3_) / 2;
+    return sqrt(s * (s - length1_) * (s - length2_) * (s - length3_));
+  }
+
+};
 
 int main(){
   
@@ -112,14 +155,23 @@ int main(){
   // create an object of the triangle class with the three lengths.
   // Your triangle class should probably make sure that these lengths
   // are sensical.  (do the distances satisfy the "triangle inequality"?)
+  std::vector<shape*> shapes;
+  shapes.push_back(new rectangle(user_base, user_height));
+  shapes.push_back(new Circle(user_radius));
+  shapes.push_back(new Triangle(length1, length2, length3));
 
   // Replace the following statements with a for loop
-  std::cout << "The area of the rectangle is: " << rec1.get_area() << std::endl;
-  std::cout << "The area of the circle is: " << std::endl;
-  std::cout << "The area of the triangle is: " << std::endl;
+  // std::cout << "The area of the rectangle is: " << rec1->get_area() << std::endl;
+  // std::cout << "The area of the circle is: " << std::endl;
+  // std::cout << "The area of the triangle is: " << std::endl;
 
   // Now iterate across the vector and delete all the objects pointed to by it;
   // you should not leak memory.
+
+  for (shape * s : shapes) {
+    std::cout << "The area of the " << s->get_name() << " is: " << s->get_area() << std::endl;
+    delete s;
+  }
 
   return 0;
 
