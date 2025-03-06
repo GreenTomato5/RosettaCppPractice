@@ -80,7 +80,7 @@ public:
 
   // Add the two methods, set_favorite_food and get_favorite_food here
   std::string get_favorite_food();
-  void set_favorite_food (std::string food);
+  virtual void set_favorite_food (std::string food);
 
 protected:
   void set_initial_weight( float weight ); // in pounds
