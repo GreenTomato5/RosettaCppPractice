@@ -36,3 +36,17 @@
 #include <vector>
 #include <string>
 
+std::vector<int> split_zero_and_ones_string( std::string const & input_string ){
+  std::vector<int> result;
+  int count = 0;
+  for (int i = 0; i < input_string.size(); i++){
+    if (input_string[i] != input_string[i+1]){
+      result.push_back(i);
+    }
+    if (result.size() == 0 && i == input_string.size()-1){
+      result.push_back(input_string.size()-1);
+    }
+  }
+  return result;
+}
+
