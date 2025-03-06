@@ -21,7 +21,8 @@
 // and set_area functions. You will test your new derived classes by creating
 // instances of each in main() and printing their areas.
 
-// Question (Answer here):
+// Question (Answer here): because area is a private member of shape not public or protected so it cant
+// be accesed by rectangle which derives from shape publically
 // Why does the whats_area() function in the rectangle class generate an error?
 
 #include <iostream>
@@ -48,7 +49,7 @@ public:
 
   float calculate_area() {return base_ * height_;} //calculates the area of a rectangle using the formula base*height
 
-  //float whats_area(){return area_;} //THIS LINE WILL NOT COMPILE. Why not?
+  // float whats_area(){return area_;} //THIS LINE WILL NOT COMPILE. Why not?
 
   void set_base( float b ) { base_ = b; set_area( calculate_area() ); }
   void set_height( float h ) { height_ = h; set_area( calculate_area() ); }
@@ -63,11 +64,47 @@ private:
 // the value to the radius. There should also be a calculate_area function that
 // calculates the area of the circle.
 
+class Circle : public shape {
+public:
+  Circle(float r) {radius_ = r; set_area(calculate_area());}
+
+  void set_radius(float r) {radius_ = r; set_area(calculate_area());}
+
+private:
+  float radius_;
+  float calculate_area() {return 3.14159265359 * radius_ * radius_;}
+};
+
 // Write a derived class, triangle, from the base class shape.  A triangle can be
 // defined by the lengths of its three sides.  Make sure your triangle is able to
 // calculate its area.  If the three lengths do not define a proper triangle (e.g.
 // if one lenght is 1 another length is 2 and the third length is 100, then you
 // don't have a closed triangle), then set the area to be -1.
+
+class Triangle : public shape {
+public:
+  Triangle(float l1, float l2, float l3) {
+    if (l1 + l2 > l3 && l1 + l3 > l2 && l2 + l3 > l1) {
+      length1_ = l1;
+      length2_ = l2;
+      length3_ = l3;
+      set_area(calculate_area());
+    } else {
+      set_area(-1);
+    }
+  }
+
+private:
+  float length1_;
+  float length2_;
+  float length3_;
+
+  float calculate_area() {
+    float s = (length1_ + length2_ + length3_) / 2;
+    return sqrt(s * (s - length1_) * (s - length2_) * (s - length3_));
+  }
+
+};
 
 int main(){
   
