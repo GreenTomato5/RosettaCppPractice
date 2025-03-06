@@ -8,6 +8,8 @@
 // each block of 0s and 1s.  Use the struct below to report a pair of
 // positions:
 
+#include <vector>
+#include <string>
 struct start_and_stop {
   int start_;
   int stop_;
@@ -37,3 +39,27 @@ struct start_and_stop {
 // Grading will work as it did for the previous assignment -- your int main() will
 // be replaced with another one that will call your function and make sure it 
 // produces the correct answers.  Think hard about edge cases.
+
+std::vector< start_and_stop > split_zeros_and_ones_blocks_from_String( std::string const & input_string) {
+  std::vector<start_and_stop> result;
+  start_and_stop temp;
+  int count = 0;
+  for (int i = 0; i < input_string.size(); i++){
+    if (input_string[i] == '0' || input_string[i] == '1'){
+      if (count == 0){
+        temp.start_ = i;
+        count++;
+      }
+      else if (input_string[i] != input_string[i-1]){
+        temp.stop_ = i-1;
+        result.push_back(temp);
+        temp.start_ = i;
+      }
+    }
+    if (i == input_string.size()-1 && count == 0){
+      temp.stop_ = i;
+      result.push_back(temp);
+    }
+  }
+  return result;
+};
